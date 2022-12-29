@@ -1,0 +1,23 @@
+name: production-deploy
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploy as Docker Container
+        run: docker compose up -d --build
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          USER: ${{ secrets.USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
+      - name: Display Logs
+        run: python3 -m exendlr bobux-prod "bot is ready"
+
+      - name: Remove Unused Containers
+        run: docker image prune -f

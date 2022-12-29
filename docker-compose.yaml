@@ -1,0 +1,13 @@
+services:
+  main:
+    build: .
+    container_name: your_bot
+    network_mode: host
+    restart: always
+    volumes:
+      - /your/data/dir:/app/data
+    environment:
+      - DATABASE=db-name
+      - USER
+      - PASSWORD
+      - TOKEN
