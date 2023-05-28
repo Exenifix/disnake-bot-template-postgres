@@ -70,6 +70,7 @@ class Bot(commands.InteractionBot):
     async def close(self) -> None:
         self.log.info("Shutting down...")
         await self.db.close()
+        await super().close()
         self.log.ok("Bot was shut down successfully")
 
     def auto_setup(self, module_name: str) -> None:
